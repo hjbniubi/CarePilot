@@ -1,0 +1,46 @@
+[
+  { "question": "你好" },
+  { "question": "我的订单一直没发货，能帮我查一下吗？" },
+  { "question": "登录一直报 401 错误，怎么解决？" },
+  { "question": "我的账单好像多扣了钱，帮我看看" },
+  { "question": "我要申请退款，需要什么流程？" },
+  { "question": "你们服务太差了，我要投诉！" },
+  { "question": "转人工客服" },
+  { "question": "今天天气怎么样？" },
+
+  { "turns": ["你好", "我想问一下退款的事", "退款大概多久能到账？"], "user_id": "eval_multi_1", "conv_id": "eval_multi_1",
+    "goal": "咨询退款事宜并获知到账时间",
+    "expected_intents": ["greeting", "refund", "refund"] },
+
+  { "turns": ["帮我查一下订单状态", "订单号是 12345", "那大概什么时候能到？"], "user_id": "eval_multi_2", "conv_id": "eval_multi_2",
+    "goal": "查询指定订单状态与预计送达时间",
+    "expected_intents": ["order_status", "order_status", "logistics"],
+    "must_recall": [{"turn": 2, "must_mention": ["12345"]}] },
+
+  { "turns": ["你好", "我有一个订单想退款", "订单号是 67890", "大概多久能到账？"], "user_id": "eval_sess_refund", "conv_id": "sess_refund_coref",
+    "goal": "完成退款申请并获知到账时间，全程记住订单号",
+    "expected_intents": ["greeting", "refund", "refund", "refund"],
+    "must_recall": [{"turn": 3, "must_mention": ["67890"]}] },
+
+  { "turns": ["我的快递好几天没动了", "太差了，我要投诉", "转人工客服"], "user_id": "eval_sess_switch", "conv_id": "sess_logistics_switch",
+    "goal": "表达物流问题与不满，并成功转接人工客服",
+    "expected_intents": ["logistics", "complaint", "human_handoff"] },
+
+  { "turns": ["我登录一直报 401", "就是我电脑上的客户端", "那要怎么解决"], "user_id": "eval_sess_login", "conv_id": "sess_account_entity",
+    "goal": "定位并解决 401 登录问题",
+    "expected_intents": ["technical_login", "technical_login", "technical_login"],
+    "must_recall": [{"turn": 2, "must_mention": ["401"]}] },
+
+  { "turns": ["我的账单好像多扣了钱", "这个月扣了两遍", "多扣的钱怎么退回来"], "user_id": "eval_sess_billing", "conv_id": "sess_billing_multi",
+    "goal": "处理重复扣款并说明退款方式",
+    "expected_intents": ["payment_issue", "payment_issue", "refund"] },
+
+  { "turns": ["你好", "帮我写一首关于春天的诗", "那退款一般要几天"], "user_id": "eval_adv_ood", "conv_id": "adv_out_of_domain",
+    "goal": "礼貌拒答越域请求，并正确回答退款时效类咨询",
+    "expected_intents": ["greeting", "other", "refund"] },
+
+  { "turns": ["我要退款", "订单号 24680", "大概要多久", "你是说哪个订单来着"], "user_id": "eval_adv_reask", "conv_id": "adv_reask",
+    "goal": "处理退款咨询，且不重复向用户索要已提供的订单号",
+    "expected_intents": ["refund", "refund", "refund", "refund"],
+    "must_recall": [{"turn": 2, "must_mention": ["24680"]}] }
+]
