@@ -4,8 +4,6 @@ CarePilot 是一个面向客服场景的多 Agent 智能系统。它不是简单
 而是把意图识别、Agent 路由、意图驱动 RAG、分层记忆、动态 Skills 注入、
 在线监控与离线评测串成一个可观测、可评测、可降级的闭环。
 
-![总体架构](docs/architecture/01-overall-architecture.svg)
-
 ## 核心能力
 
 - **细粒度意图识别**：LLM + Embedding + 关键词三路融合打分，覆盖 19 类意图。
@@ -66,9 +64,8 @@ CarePilot/
 │   ├── evaluation/          离线评测套件
 │   ├── skills/              动态 SOP 技能文档
 │   └── tests/               单元测试
-├── frontend/                Vue 3 调试工作台
-│   └── src/                 App.vue / lib/backends.js
-└── docs/architecture/       架构图（SVG）
+└── frontend/                Vue 3 调试工作台
+    └── src/                 App.vue / lib/backends.js
 ```
 
 ## 主要接口
