@@ -265,10 +265,10 @@ def _print_e2e(report, cfg: Dict[str, Any], judge_model: str) -> None:
 # ── Phase 3：检索 + RAG 回答评测 ─────────────────────────────────────────────
 
 def _load_corpus() -> Dict[str, str]:
-    """加载评测语料（data/demo_docs/kb_carepilot_*.json），返回 {title: content}。"""
-    demo_dir = _ROOT / "data" / "demo_docs"
+    """加载评测语料（evaluation/datasets/corpus/kb_carepilot_*.json），返回 {title: content}。"""
+    corpus_dir = _ROOT / "evaluation" / "datasets" / "corpus"
     corpus: Dict[str, str] = {}
-    for path in sorted(demo_dir.glob("kb_carepilot_*.json")):
+    for path in sorted(corpus_dir.glob("kb_carepilot_*.json")):
         for doc in _load_json(str(path)):
             title = str(doc.get("title", "")).strip()
             content = str(doc.get("content", "")).strip()
@@ -330,7 +330,7 @@ async def run_rag(args, cfg: Dict[str, Any]) -> Dict[str, Any]:
 
     corpus = _load_corpus()
     if not corpus:
-        raise ValueError("评测语料为空 —— 检查 data/demo_docs/kb_carepilot_*.json")
+        raise ValueError("评测语料为空 —— 检查 evaluation/datasets/corpus/kb_carepilot_*.json")
 
     raw = _load_json(args.rag_data)
     if not isinstance(raw, list) or not raw:
